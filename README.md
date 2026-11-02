@@ -72,11 +72,11 @@ Movie 엔티티는 MariaDB의 movies 테이블과 연결됩니다.
 # 2. Database SQL Practice
 ## 기존 Table 조회 및 데이터 추가 결과
     SELECT * FROM book;
-![img.png](docs/screenshots/img.png)
+![sql-book-select.png](images/sql-book-select.png)
 
     INSERT INTO book (title, author, price, category)
     VALUES ('테스트 책 이름', '테스트 책 저자', 45000, '테스트');
-![img_1.png](docs/screenshots/img_1.png)
+![sql-book-insert.png](images/sql-book-insert.png)
 
 ---
 ## 새 Table 생성 SQL
@@ -88,37 +88,37 @@ Movie 엔티티는 MariaDB의 movies 테이블과 연결됩니다.
         genre VARCHAR(50),
         rating DOUBLE
     );
-![01-movie-sql-schema.png](docs/screenshots/06-sql-practice/01-movie-sql-schema.png)
+![sql-movie-schema.png](images/sql-movie-schema.png)
 
 ---
 ## INSERT / UPDATE / DELETE / SELECT SQL과 실행 결과
 ### INSERT — 데이터 추가
     INSERT INTO movie_sql(title, director, genre, rating)
     VALUES ('Inception', 'Nolan', 'SF', 9.1), ('Interstellar', 'Nolan', 'SF', 9.3), ('Parasite', 'Bong', 'Drama', 9.0);
-![02-insert-results.png](docs/screenshots/06-sql-practice/02-insert-results.png)
+![sql-movie-insert.png](images/sql-movie-insert.png)
 
 ### UPDATE — 데이터 수정
     UPDATE movie_sql SET rating = 9.5 WHERE title = 'Interstellar';
-![03-update-result.png](docs/screenshots/06-sql-practice/03-update-result.png)
+![sql-movie-update.png](images/sql-movie-update.png)
 
 ### DELETE — 데이터 삭제
     DELETE FROM movie_sql WHERE title = 'Parasite';
-![04-delete-result.png](docs/screenshots/06-sql-practice/04-delete-result.png)
+![sql-movie-delete.png](images/sql-movie-delete.png)
 
 ### SELECT — 전체 및 일부 조회
     SELECT * FROM movie_sql;
-![05-select-all-result.png](docs/screenshots/06-sql-practice/05-select-all-result.png)
+![sql-movie-select-all.png](images/sql-movie-select-all.png)
 
     SELECT title, rating FROM movie_sql;
-![06-select-title-rating-result.png](docs/screenshots/06-sql-practice/06-select-title-rating-result.png)
+![sql-movie-select-columns.png](images/sql-movie-select-columns.png)
 
     SELECT * FROM movie_sql WHERE genre = 'SF';
-![07-select-genre-result.png](docs/screenshots/06-sql-practice/07-select-genre-result.png)
+![sql-movie-select-genre.png](images/sql-movie-select-genre.png)
 
 ---
 ## DataGrip 실행 화면
 movie_sql 최종 결과 화면
-![img_5.png](img_5.png)
+![sql-movie-final-datagrip.png](images/sql-movie-final-datagrip.png)
 
 # 3. Spring Data JPA 구현
 ## Entity 및 JpaRepository 설명
@@ -211,7 +211,7 @@ MovieRepository는 JpaRepository<Movie, Long>을 상속합니다.
             "watched": true
         }
     ]
-![01-get-all.png](docs/screenshots/05-render-api-crud/01-get-all.png)
+![render-api-get-all.png](images/render-api-get-all.png)
 
 #### POST: 영화 등록 
 요청(`POST /api/movies`)
@@ -234,7 +234,7 @@ MovieRepository는 JpaRepository<Movie, Long>을 상속합니다.
       "rating": 7,
       "watched": false
     }
-![02-post-create.png](docs/screenshots/05-render-api-crud/02-post-create.png)
+![render-api-post-create.png](images/render-api-post-create.png)
 
 #### GET: 영화 단건 조회
 
@@ -252,7 +252,7 @@ MovieRepository는 JpaRepository<Movie, Long>을 상속합니다.
         "rating": 7,
         "watched": false
     }
-![03-get-by-id.png](docs/screenshots/05-render-api-crud/03-get-by-id.png)
+![render-api-get-by-id.png](images/render-api-get-by-id.png)
 
 #### PUT: 영화 수정
 요청 (`PUT /api/movies/4`)
@@ -275,12 +275,12 @@ MovieRepository는 JpaRepository<Movie, Long>을 상속합니다.
       "rating": 8,
       "watched": true
     }
-![04-put-update.png](docs/screenshots/05-render-api-crud/04-put-update.png)
+![render-api-put-update.png](images/render-api-put-update.png)
 
 #### DELETE: 영화 삭제
 DELETE 요청은 별다른 반환 정보 없이 상태 `204 No Content`를 반환합니다. 삭제한 ID를 다시 조회하면 `404 Not Found`가 반환됩니다.
-![05-delete.png](docs/screenshots/05-render-api-crud/05-delete.png)
-![06-get-deleted-id-404.png](docs/screenshots/05-render-api-crud/06-get-deleted-id-404.png)
+![render-api-delete.png](images/render-api-delete.png)
+![render-api-get-deleted-id-404.png](images/render-api-get-deleted-id-404.png)
 
 #### 요청과 응답 사이 차이점
 실제 응답에는 서버가 자동 생성한 id가 포함됩니다.
@@ -303,27 +303,27 @@ DELETE 요청은 별다른 반환 정보 없이 상태 `204 No Content`를 반�
 # 4. JPA와 SQL 비교
 ## save(), findAll(), findById(), deleteById() 사용 결과
 ### save()
-![03-post-create.png](docs/screenshots/02-local-api-crud/03-post-create.png)
-![04-database-after-create.png](docs/screenshots/02-local-api-crud/04-database-after-create.png)
+![local-api-post-create.png](images/local-api-post-create.png)
+![local-database-after-create.png](images/local-database-after-create.png)
 ### findAll()
-![05-get-all.png](docs/screenshots/02-local-api-crud/05-get-all.png)
+![local-api-get-all.png](images/local-api-get-all.png)
 ### findById()
-![06-get-by-id.png](docs/screenshots/02-local-api-crud/06-get-by-id.png)
+![local-api-get-by-id.png](images/local-api-get-by-id.png)
 ### deleteById()
-![09-delete.png](docs/screenshots/02-local-api-crud/09-delete.png)
-![10-database-after-delete.png](docs/screenshots/02-local-api-crud/10-database-after-delete.png)
-![11-get-deleted-id-404.png](docs/screenshots/02-local-api-crud/11-get-deleted-id-404.png)
+![local-api-delete.png](images/local-api-delete.png)
+![local-database-after-delete.png](images/local-database-after-delete.png)
+![local-api-get-deleted-id-404.png](images/local-api-get-deleted-id-404.png)
 
 ---
 ## 실제 Hibernate SQL 확인
 ### INSERT
-![01-insert.png](docs/screenshots/03-hibernate-sql/01-insert.png)
+![hibernate-insert.png](images/hibernate-insert.png)
 ### UPDATE 및 SELECT
-![02-update-and-select.png](docs/screenshots/03-hibernate-sql/02-update-and-select.png)
+![hibernate-update-select.png](images/hibernate-update-select.png)
 ### DELETE
-![03-delete.png](docs/screenshots/03-hibernate-sql/03-delete.png)
+![hibernate-delete.png](images/hibernate-delete.png)
 ### ID 조건 SELECT
-![04-select-by-id.png](docs/screenshots/03-hibernate-sql/04-select-by-id.png)
+![hibernate-select-by-id.png](images/hibernate-select-by-id.png)
 
 ---
 ## SQL을 직접 작성하는 방식과 JPA 방식의 차이
@@ -352,23 +352,23 @@ IntelliJ에서는 로컬 실행 설정에, Render에서는 서비스의 Environm
 
 배포 전 프로젝트에서 사용할 DB와 관련된 적절한 환경변수를 미리 사이트에 입력한 후 배포하였습니다.
 
-![02-deploy-live-and-logs.png](docs/screenshots/04-render-deployment/02-deploy-live-and-logs.png)
+![render-deployment-live-logs.png](images/render-deployment-live-logs.png)
 ## 배포 URL의 CRUD 테스트 결과
 ### 전체 조회
-![01-get-all.png](docs/screenshots/05-render-api-crud/01-get-all.png)
+![render-api-get-all.png](images/render-api-get-all.png)
 ### 등록
-![02-post-create.png](docs/screenshots/05-render-api-crud/02-post-create.png)
+![render-api-post-create.png](images/render-api-post-create.png)
 ### 단건 조회
-![03-get-by-id.png](docs/screenshots/05-render-api-crud/03-get-by-id.png)
+![render-api-get-by-id.png](images/render-api-get-by-id.png)
 ### 수정
-![04-put-update.png](docs/screenshots/05-render-api-crud/04-put-update.png)
+![render-api-put-update.png](images/render-api-put-update.png)
 ### 삭제
-![05-delete.png](docs/screenshots/05-render-api-crud/05-delete.png)
+![render-api-delete.png](images/render-api-delete.png)
 ### 삭제한 ID 재조회
-![06-get-deleted-id-404.png](docs/screenshots/05-render-api-crud/06-get-deleted-id-404.png)
+![render-api-get-deleted-id-404.png](images/render-api-get-deleted-id-404.png)
 
 ## MariaDB 데이터 저장 확인
-![img_3.png](img_3.png)
+![mariadb-movies-table.png](images/mariadb-movies-table.png)
 
 ## 발생한 문제와 해결 방법
 ### 발생한 문제
