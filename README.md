@@ -126,6 +126,18 @@
   ![dirtyCheckingResultRenderHibernateLog.png](images/dirtyCheckingResultRenderHibernateLog.png)
 
 ## Auditing: 생성·수정 시간 자동 기록 결과
+### 생성
+* Postman
+  ![auditingResultPostman1.png](images/auditingResultPostman1.png)
+* DB
+  ![auditingResultDB1.png](images/auditingResultDB1.png)
+
+### 수정
+* Postman
+  ![auditingResultPostman2.png](images/auditingResultPostman2.png)
+* DB
+  ![auditingResultDB2.png](images/auditingResultDB2.png)
+* 
 ※ 소스 코드에 작성한 설명이나 주석을 README에 중복 작성할 필요는 없습니다. 주요 기능의 실행 결과를 중심으로 정리하세요.
 
 ---
