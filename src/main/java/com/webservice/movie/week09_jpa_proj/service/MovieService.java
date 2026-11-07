@@ -6,6 +6,7 @@ import com.webservice.movie.week09_jpa_proj.entity.Movie;
 import com.webservice.movie.week09_jpa_proj.repository.MovieRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,11 +36,19 @@ public class MovieService {
         return MovieResponse.from(findEntity(id));
     }
 
+    /*
     public MovieResponse update(Long id, MovieRequest request) {
         Movie movie = findEntity(id);
         movie.update(request);
         // Week 09: 9주차에는 아래와 같이 명시적으로 저장하는 방식을 채택했지만 10주차에서는 Jpa를 통해 자동으로 변경를 감지하고 반영하는 방식을 채택해볼 예정!
         return MovieResponse.from(repository.save(movie));
+    }
+    */
+    @Transactional
+    public Movie updateMovie(Long id, MovieRequest request) {
+        Movie movie = findEntity(id);
+        movie.update(request);
+        return movie;
     }
 
     public void delete(Long id) {

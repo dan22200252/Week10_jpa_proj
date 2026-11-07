@@ -50,8 +50,8 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public MovieResponse update(@PathVariable Long id, @Valid @RequestBody MovieRequest request){
-        return service.update(id, request);
+    public Movie update(@PathVariable Long id, @Valid @RequestBody MovieRequest request){
+        return service.updateMovie(id, request);
     }
 
     @DeleteMapping("/{id}")
