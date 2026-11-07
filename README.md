@@ -117,6 +117,14 @@
   ```
 
 ## Dirty Checking: 수정 기능 구현 및 실행 결과
+### 실행 결과
+* Postman
+  ![dirtyCheckingResultPostman.png](images/dirtyCheckingResultPostman.png)
+* DB 반영
+  ![dirtyCheckingResultDB.png](images/dirtyCheckingResultDB.png)
+* Render Hibernate 로그
+  ![dirtyCheckingResultRenderHibernateLog.png](images/dirtyCheckingResultRenderHibernateLog.png)
+
 ## Auditing: 생성·수정 시간 자동 기록 결과
 ※ 소스 코드에 작성한 설명이나 주석을 README에 중복 작성할 필요는 없습니다. 주요 기능의 실행 결과를 중심으로 정리하세요.
 
@@ -126,6 +134,7 @@
 
 ## Key Learning: 새롭게 배운 내용 2~3가지
 ### Dirty Checking
+
 ### Auditing
 ### Transaction
 
