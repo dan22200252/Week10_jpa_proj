@@ -54,4 +54,49 @@ public class MovieService {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Movie not found: " + id));
     }
+
+    // Week 10: 확장 구현
+    public List<MovieResponse> getMovies(String title, Integer minRating, Integer maxRating, String genre){
+        boolean hasTitle = title != null && !title.isBlank();
+        boolean hasRating = minRating != null || maxRating != null;
+        boolean hasGenre = genre != null && !genre.isBlank();
+
+        // rating이 하나만 입력되었을 경우
+        if (hasRating && (minRating == null || maxRating == null)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "평점 범위로 검색하려면 최소 평점과 최대 평점을 모두 입력해 주세요.");
+        }
+        // minRating이 maxRating보다 클 경우
+        if (hasRating && (minRating > maxRating)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "최소 평점은 최대 평점보다 클 수 없습니다.");
+        }
+
+        // 조건이 한번에 여러 개 주어졌을 경우
+        int conditionCount = (hasTitle ? 1 : 0) + (hasRating ? 1 : 0) + (hasGenre ? 1 : 0);
+
+        if (conditionCount > 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "검색 조건은 한 번에 하나씩 입력해 주세요.");
+        }
+
+        if (conditionCount == 0) {
+            return findAll();
+        }
+
+        List<Movie> movies = List.of();
+
+        if (hasTitle) {
+            movies =  repository.findByTitleContainingIgnoreCase(title.trim());
+        }
+
+        if (hasRating) {
+            movies = repository.findByRatingBetween(minRating, maxRating);
+        }
+
+        if (hasGenre) {
+            movies = repository.findByGenreOrderByRatingDesc(genre.trim());
+        }
+
+        return movies.stream()
+                .map(MovieResponse::from)
+                .toList();
+    }
 }
