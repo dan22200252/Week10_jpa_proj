@@ -118,7 +118,7 @@
 
 ## Dirty Checking: 수정 기능 구현 및 실행 결과
 ### 실행 결과
-* Postman
+* Postman: 
   ![dirtyCheckingResultPostman.png](images/dirtyCheckingResultPostman.png)
 * DB 반영
   ![dirtyCheckingResultDB.png](images/dirtyCheckingResultDB.png)
@@ -137,18 +137,20 @@
   ![auditingResultPostman2.png](images/auditingResultPostman2.png)
 * DB
   ![auditingResultDB2.png](images/auditingResultDB2.png)
-* 
+
 ※ 소스 코드에 작성한 설명이나 주석을 README에 중복 작성할 필요는 없습니다. 주요 기능의 실행 결과를 중심으로 정리하세요.
 
 ---
 
 # ③ Weekly Review
 
-## Key Learning: 새롭게 배운 내용 2~3가지
+## Key Learning
 ### Dirty Checking
-
+트랜잭션 내에서 관리되는 Entity의 필드를 변경하면 JPA가 그것을 감지하고 커밋 시점에 DB에 반영하게 된다는 것을 배웠습니다. `MovieService` 내의 수정 메서드에서 별도로 `save()` 메서드를 호출하지 않아도 변경 사항이 저장되는 것을 확인했습니다.
 ### Auditing
+Spring Data JPA Auditing을 사용하면 Entity의 생성 시각과 가장 최근의 수정 시각을 자동으로 기록할 수 있다는 사실을 배웠습니다. 새로운 영화를 등록했을 때 동일한 시간이 각각 등록 시간과 수정시간에 반영되고 영화를 수정했을 때 수정 시간만 갱신되는 것을 확인했습니다.
 ### Transaction
+@Transactional을 통해 여러 DB 작업을 하나의 트랜잭션으로 수행하고 하나의 트랜잭션 내 작업이 정상적으로 끝나면 변경 사항을 커밋한다는 것을 배웠습니다.
 
 ### `isBlank()`와 `isEmpty`의 차이점
 | 문자열 | `isEmpty()` | `isBlank()` |
@@ -157,8 +159,16 @@
 | `"   "` | `false` | `true` |
 | `"movie"` | `false` | `false` |
 
-## Problem & Solution: 어려웠던 점과 해결 방법
-## Reflection: 이번 과제를 통해 느낀 점
+## Problem & Solution
+### Problem
+Auditing을 적용한 뒤 Render에서 영화 등록 요청을 보냈을 때 500 오류가 발생했습니다.
+### Solution
+Render 로그를 확인했을 때 Hibernate의 INSERT 문에서 사용되는 `created_at`, `updated_at` 컬럼이 MariaDB의 `movies` 테이블에 존재하지 않아 발생하는 오류라는 것을 확인했습니다. DataGrip에서 `ALTER TABLE` 명령어를 통해 해당 컬럼을 추가한 뒤 다시 등록 요청을 보냈을 때 정상적으로 수행되는 것을 확인했습니다.
+
+## Reflection
+이번 과제를 통해서 Entity에 필드를 추가하는 것만으로 실제 데이터베이스의 구조까지 그에 맞춰지는 것은 아니라는 점을 배우게 되었습니다. 
+위와 같은 오류가 발생했을 때 이 오류를 해결하기 위해서 로그와 데이터베이스 테이블을 확인하는 과정이 문제를 찾고 해결하는 데에 도움이 되었습니다. 
+또한 로컬 코드와 Render에 배포된 코드는 다를 수 있고 자동으로 맞춰지는 것이 아니기 때문에 늘 변경 사항이 잘 푸시되었는지 확인하는 것도 중요하다고 느꼈습니다.
 
 ---
 
@@ -177,7 +187,7 @@
 
  ```bash
 int conditionCount =
-        (hasKeyword ? 1 : 0) +
+        (hasTitle ? 1 : 0) +
         (hasRating ? 1 : 0) +
         (hasGenre ? 1 : 0);
 
@@ -190,3 +200,4 @@ if (conditionCount > 1) {
  ```
 
 ## AI 사용 비율에 대한 자기 평가
+30%, 개념 확립과 오류 검토에 주로 사용하였습니다.
