@@ -19,6 +19,11 @@ public class MovieService {
         this.repository = repository;
     }
 
+    /*
+    Q7. save()를 호출하면 새로운 데이터 등록과 기존 데이터 수정이 어떻게 처리되는가?
+    A7.새로운 데이터는 id가 아직 만들어지지 않은 상태이기 때문에 save()가 새로운 Entity라고 판단하고 데이터베이스에 새로운 id와 함께 등록됩니다. 데이터베이스에서는 INSERT가 실행됩니다.
+       기존 데이터는 이미 id가 존재하는 상태이기 때문에 save()가 새로운 데이터가 아니라고 판단하고 변경 상태를 반영합니다. 데이터베이스에서는 UPDATE가 실행됩니다.
+     */
     public MovieResponse create(MovieRequest request) {
         Movie saved = repository.save(new Movie(request));
         return MovieResponse.from(saved);
@@ -44,6 +49,11 @@ public class MovieService {
         return MovieResponse.from(repository.save(movie));
     }
     */
+
+    /*
+    Q8. @Transactional과 Dirty Checking은 어떤 관계가 있는가?
+    A8. @Transactional은 객체의 변경을 감지할 트랜잭션 범위를 지정합니다. 변경 사항 커밋 시 Dirty Checking을 통해 해당 변경 사항을 DB에 반영합니다.
+     */
     @Transactional
     public Movie updateMovie(Long id, MovieRequest request) {
         Movie movie = findEntity(id);
